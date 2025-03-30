@@ -1,6 +1,6 @@
 const multiplyNumber = (num) => {
   if (isNaN(num)) {
-    return "Пожалуйста, укажите корректное число в качестве аргумента";
+    return "Укажите корректное число в качестве аргумента";
   }
 
   const number = parseFloat(num);
@@ -15,7 +15,7 @@ const multiplyNumber = (num) => {
 const inputNumber = process.argv[2];
 
 if (inputNumber === undefined) {
-  console.log("Пожалуйста, укажите число в качестве аргумента. Пример: node app.js 10");
+  console.log("Укажите число в качестве аргумента. Пример: node app.js 10");
   process.exit(0);
 }
 
