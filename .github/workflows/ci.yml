@@ -1,4 +1,4 @@
-name: JavaScript CI/CD
+name: JavaScript CI/CD with SonarQube
 
 on: [push, pull_request]
 
@@ -10,18 +10,27 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - name: Cache node_modules
         uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+
       - name: Install dependencies
         run: npm install
+
       - name: Run tests
         run: npm test
+
       - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v5
+        uses: SonarSource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=your_project_key
+            -Dsonar.organization=your_org_name
+            -Dsonar.projectName="JS Project"
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
