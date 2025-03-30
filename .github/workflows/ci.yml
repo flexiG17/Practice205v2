@@ -17,6 +17,8 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies
         run: npm install
+      - name: Security audit
+        run: npm audit
       - name: Run tests
         run: npm test
       - name: SonarQube Scan
